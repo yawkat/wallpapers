@@ -7,7 +7,8 @@ import urllib
 
 items = set()
 
-os.makedirs("images")
+if not path.isdir("images"):
+    os.makedirs("images")
 
 with open("links", "r") as f:
     for item in f:
@@ -20,6 +21,7 @@ with open("links", "r") as f:
         items.add(name)
         f = path.join("images", name)
         if path.isfile(f):
+            print "Skipping '%s', already downloaded!" % item
             continue
         print "Downloading '%s'..." % item
         urllib.urlretrieve(item, f)
